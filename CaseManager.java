@@ -1,6 +1,7 @@
+
 package edu.sdmesa.cisc191;
 import java.util.ArrayList;
-
+import java.io.IOException;
 /**
  * Lead Author(s):
  * @author Noel Mathew
@@ -14,11 +15,12 @@ public class CaseManager
 {
 	// ArrayList to store flu cases
     private ArrayList<FluCase> cases;
-
+    private DataStorage storage;
     // Constructor
-    public CaseManager()
+    public CaseManager(DataStorage storage)
     {
         cases = new ArrayList<FluCase>();
+        this.storage = storage;
     }
 
     // Add a flu case
@@ -61,6 +63,17 @@ public class CaseManager
     public ArrayList<FluCase> getAllCases()
     {
         return new ArrayList<FluCase>(cases);
+    }
+    
+  // Load flu cases from the CSV file into the ArrayList
+    public void loadCases() throws IOException
+    {
+        cases = storage.loadCases();
+    }
+ // Save all flu cases from the ArrayList into the CSV file
+    public void saveCases() throws IOException
+    {
+        storage.saveCases(cases);
     }
 
     // Count flu cases in a ZIP code
